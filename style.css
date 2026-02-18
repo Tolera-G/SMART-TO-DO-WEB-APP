@@ -1,0 +1,102 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+/* 1️ Center the App */
+body {
+  background-color: #f4f7f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* 2️ Style the Container */
+.app-container {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+/* 3️ Style Input Section */
+.input-section {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+
+#taskInput {
+  flex-grow: 1; /* Input stretches to fill space */
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  outline: none;
+}
+
+#addBtn {
+  padding: 10px 15px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#addBtn:hover {
+  background-color: #218838;
+}
+
+/* 4️ Style Task Items & List */
+#taskList {
+  list-style: none;
+  margin-bottom: 1.5rem;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+/* Class for completed tasks */
+.completed {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+/* Filter Section */
+.filter-section {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+}
+
+.filter-btn {
+  flex: 1;
+  padding: 8px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  border: 1px solid #ddd;
+  background: #f9f9f9;
+  border-radius: 4px;
+}
+
+.filter-btn:hover {
+  background: #eee;
+}
