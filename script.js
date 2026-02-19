@@ -34,9 +34,26 @@ addBtn.addEventListener("click", () => {
     renderTasks();
 });
 
-// 4️⃣ Placeholder Render Function
-// We will build the logic inside this in the next step
+// 4️⃣ Create renderTasks() Function
 function renderTasks() {
-    console.log("Current Tasks Array:", tasks);
-    // For now, it just shows the array in the console
+    // A. Clear existing list first
+    // This prevents the list from duplicating every time a new task is added
+    taskList.innerHTML = "";
+
+    // B. Loop through the "Single Source of Truth" (tasks array)
+    tasks.forEach(task => {
+        // C. Create <li> element dynamically
+        const li = document.createElement("li");
+        
+        // D. Set the text content
+        li.textContent = task.text;
+
+        // E. Apply styling if the task is completed (for future toggle step)
+        if (task.completed) {
+            li.classList.add("completed");
+        }
+
+        // F. Append (Add) the <li> to the <ul> container
+        taskList.appendChild(li);
+    });
 }
