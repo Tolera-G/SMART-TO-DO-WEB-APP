@@ -57,3 +57,22 @@ function renderTasks() {
         taskList.appendChild(li);
     });
 }
+// 5️⃣ STEP 3: Create toggleTask() Function
+function toggleTask(id) {
+    /**
+     * THE IDEA: Immutable Mapping
+     * We go through every task in our 'tasks' array.
+     * If the ID matches the one clicked, we "flip" the completed status.
+     */
+    tasks = tasks.map(task => {
+        if (task.id === id) {
+            // Return a copy of the task with the opposite 'completed' value
+            return { ...task, completed: !task.completed };
+        }
+        // If it's not the one we clicked, return it exactly as it was
+        return task;
+    });
+
+    // Re-render the UI to reflect the data change
+    renderTasks();
+}
