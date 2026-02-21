@@ -1,41 +1,37 @@
-/* 🌐 General Reset */
+/* General Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: sans-serif;
 }
 
-/* 🎨 Background */
+/* 1️⃣ Center the App */
 body {
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  background-color: #f4f7f6;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
 }
 
-/* 📦 Container */
+/* 2️⃣ Style the Container */
 .app-container {
-  background: #ffffff;
+  background-color: #ffffff;
   width: 100%;
-  max-width: 420px;
+  max-width: 400px;
   padding: 2rem;
-  border-radius: 16px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
-  animation: fadeIn 0.6s ease-in-out;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
-/* ✨ Header */
 header h1 {
   text-align: center;
   margin-bottom: 1.5rem;
-  color: #2c5364;
-  font-weight: 600;
-  letter-spacing: 1px;
+  color: #333;
 }
 
-/* 📝 Input Section */
+/* 3️⃣ Style Input Section */
 .input-section {
   display: flex;
   gap: 10px;
@@ -43,36 +39,28 @@ header h1 {
 }
 
 #taskInput {
-  flex-grow: 1;
-  padding: 12px;
+  flex-grow: 1; /* Input stretches to fill space */
+  padding: 10px;
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 6px;
   outline: none;
-  transition: all 0.3s ease;
 }
 
-#taskInput:focus {
-  border-color: #2c5364;
-  box-shadow: 0 0 8px rgba(44, 83, 100, 0.3);
-}
-
-/* ➕ Add Button */
 #addBtn {
-  padding: 12px 18px;
-  background: linear-gradient(135deg, #28a745, #218838);
+  padding: 10px 15px;
+  background-color: #28a745;
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition: background 0.2s;
 }
 
 #addBtn:hover {
-  transform: scale(1.05);
-  opacity: 0.9;
+  background-color: #218838;
 }
 
-/* 📋 Task List */
+/* 4️⃣ Style Task Items & List */
 #taskList {
   list-style: none;
   margin-bottom: 1.5rem;
@@ -82,48 +70,33 @@ li {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px;
+  padding: 10px;
   border-bottom: 1px solid #eee;
-  transition: background 0.3s ease;
 }
 
-li:hover {
-  background: #f9f9f9;
-}
-
-/* ✅ Completed Tasks */
+/* Class for completed tasks */
 .completed {
   text-decoration: line-through;
   opacity: 0.6;
-  color: #888;
 }
 
-/* 🔎 Filter Section */
+/* Filter Section */
 .filter-section {
   display: flex;
   justify-content: space-between;
-  gap: 8px;
+  gap: 5px;
 }
 
 .filter-btn {
   flex: 1;
-  padding: 10px;
-  font-size: 0.85rem;
+  padding: 8px;
+  font-size: 0.8rem;
   cursor: pointer;
   border: 1px solid #ddd;
-  background: #f1f1f1;
-  border-radius: 6px;
-  transition: all 0.3s ease;
+  background: #f9f9f9;
+  border-radius: 4px;
 }
 
 .filter-btn:hover {
-  background: #2c5364;
-  color: white;
-  border-color: #2c5364;
-}
-
-/* 🌟 Animations */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  background: #eee;
 }
