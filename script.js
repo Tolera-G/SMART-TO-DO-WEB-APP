@@ -1,20 +1,21 @@
-// 1️⃣ Select DOM Elements
+// 1️⃣ Select DOM elements
 const taskInput = document.querySelector("#taskInput");
 const addBtn = document.querySelector("#addBtn");
 const taskList = document.querySelector("#taskList");
 
-// 2️⃣ Define the State (Single Source of Truth)
+// 2️⃣ Create the state (memory)
 let tasks = [];
 
-// 3️⃣ Add Event Listener
-// This waits for the user to click the "Add Task" button
-addBtn.addEventListener("click", () => {
-    const taskText = taskInput.value.trim(); // Get text and remove extra spaces
+// 3️⃣ Listen for Add button click
+addBtn.addEventListener("click", function() {
 
-    // Validate: Don't allow empty tasks
-    if (taskText === "") {
-        alert("Please enter a task!");
-        return; // Stop the function here
+    // 4️⃣ Read user input
+    const taskText = taskInput.value;
+
+    // 5️⃣ Validate input
+    if (taskText.trim() === "") {
+        alert("Please enter a task");
+        return;
     }
 
     // Create Task Object
@@ -34,29 +35,35 @@ addBtn.addEventListener("click", () => {
     renderTasks();
 });
 
-// 4️⃣ Create renderTasks() Function
-function renderTasks() {
-    // A. Clear existing list first
-    // This prevents the list from duplicating every time a new task is added
-    taskList.innerHTML = "";
+// function renderTasks() {
+  taskList.innerHTML = "";
 
-    // B. Loop through the "Single Source of Truth" (tasks array)
-    tasks.forEach(task => {
-        // C. Create <li> element dynamically
-        const li = document.createElement("li");
-        
-        // D. Set the text content
-        li.textContent = task.text;
+  tasks.forEach(task => {
+    const li = document.createElement("li");
 
-        // E. Apply styling if the task is completed (for future toggle step)
-        if (task.completed) {
-            li.classList.add("completed");
-        }
+    const span = document.createElement("span");
+    span.textContent = task.text;
 
-        // F. Append (Add) the <li> to the <ul> container
-        taskList.appendChild(li);
+    if (task.completed) {
+      span.classList.add("completed");
+    }
+
+    span.addEventListener("click", () => {
+      toggleTask(task.id);
     });
-}
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Delete";
+
+    deleteBtn.addEventListener("click", () => {
+      deleteTask(task.id);
+    });
+
+    li.appendChild(span);
+    li.appendChild(deleteBtn);
+    taskList.appendChild(li);
+  });
+
 // 5️⃣ STEP 3: Create toggleTask() Function
 function toggleTask(id) {
     /**
