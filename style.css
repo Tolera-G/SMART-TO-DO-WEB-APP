@@ -59,6 +59,22 @@ header h1 {
 #addBtn:hover {
   background-color: #218838;
 }
+/* Delete button*/
+
+.delete-btn {
+  background-color: #ff4d4d;
+  color:white;
+  border:none;
+  padding:6px 12px;
+  margin-left: 10px;
+  border-radius:5px;
+  cursor:pointer;
+  font-size: 14px;
+  transition:background-color 0.3s ease;
+}
+.delete-btn:hover {
+  background-color: #cc0000;
+}
 
 /* 4️⃣ Style Task Items & List */
 #taskList {

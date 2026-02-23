@@ -15,6 +15,22 @@ function renderTasks() {
     tasks.forEach(function(task) {
         const li = document.createElement("li");
         li.textContent = task.text;
+
+        //Create delete button
+        const deleteBtn=document.createElement("button");
+        deleteBtn.textContent="Delete";
+        deleteBtn.classList.add("delete-btn");
+
+        deleteBtn.addEventListener("click", function() {
+            // Remove task from array
+            tasks = tasks.filter(function(t) {
+                return t.id !== task.id;
+            });
+            // Update the UI
+            renderTasks();
+        });
+
+        li.appendChild(deleteBtn);
         taskList.appendChild(li);
     });
 }
