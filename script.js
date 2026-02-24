@@ -1,33 +1,51 @@
-// 1️⃣ Select DOM elements
+// 1️⃣ Select DOM Elements
 const taskInput = document.querySelector("#taskInput");
 const addBtn = document.querySelector("#addBtn");
 const taskList = document.querySelector("#taskList");
 
+// 2️⃣ Load tasks from localStorage (or start empty)
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
-// 2️⃣ Create the state (memory)
-let tasks = [];
+// 3️⃣ Render tasks when page loads
+renderTasks();
 
+// 4️⃣ Add Task Event
+addBtn.addEventListener("click", function () {
+    const text = taskInput.value.trim();
 
-// 3️⃣ Render function (updates UI based on tasks array)
+    if (text === "") {
+        alert("Please enter a task");
+        return;
+    }
+
+    const task = {
+        id: Date.now(),
+        text: text,
+        completed: false
+    };
+
+    tasks.push(task);
+
+    saveTasks();
+    renderTasks();
+
+    taskInput.value = "";
+});
+
+// 5️⃣ Render Function
 function renderTasks() {
-    taskList.innerHTML = "";  // Clear existing list
+    taskList.innerHTML = "";
 
-    tasks.forEach(function(task) {
+    tasks.forEach(function (task) {
         const li = document.createElement("li");
         li.textContent = task.text;
 
-        //Create delete button
-        const deleteBtn=document.createElement("button");
-        deleteBtn.textContent="Delete";
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "Delete";
         deleteBtn.classList.add("delete-btn");
 
-        deleteBtn.addEventListener("click", function() {
-            // Remove task from array
-            tasks = tasks.filter(function(t) {
-                return t.id !== task.id;
-            });
-            // Update the UI
-            renderTasks();
+        deleteBtn.addEventListener("click", function () {
+            deleteTask(task.id);
         });
 
         li.appendChild(deleteBtn);
@@ -35,32 +53,17 @@ function renderTasks() {
     });
 }
 
+// 6️⃣ Delete Task Function
+function deleteTask(id) {
+    tasks = tasks.filter(function (task) {
+        return task.id !== id;
+    });
 
-// 4️⃣ Listen for Add button click
-addBtn.addEventListener("click", function() {
-
-    // Read user input
-    const taskText = taskInput.value;
-
-    // Validate input
-    if (taskText.trim() === "") {
-        alert("Please enter a task");
-        return;
-    }
-
-    // Create task object
-    const newTask = {
-        id: Date.now(),
-        text: taskText,
-        completed: false
-    };
-
-    // Save to array (update state)
-    tasks.push(newTask);
-
-    // Update the UI
+    saveTasks();
     renderTasks();
+}
 
-    // Optional: Clear input field after adding
-    taskInput.value = "";
-});
+// 7️⃣ Save to localStorage
+function saveTasks() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
