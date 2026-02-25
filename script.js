@@ -1,16 +1,29 @@
-// 1️⃣ Select DOM Elements
+/***********************
+  1️⃣ DOM SELECTION
+************************/
 const taskInput = document.querySelector("#taskInput");
 const addBtn = document.querySelector("#addBtn");
 const taskList = document.querySelector("#taskList");
 
-// 2️⃣ Load tasks from localStorage (or start empty)
+
+/***********************
+  2️⃣ APPLICATION STATE
+************************/
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
-// 3️⃣ Render tasks when page loads
-renderTasks();
 
-// 4️⃣ Add Task Event
-addBtn.addEventListener("click", function () {
+/***********************
+  3️⃣ EVENT LISTENERS
+************************/
+addBtn.addEventListener("click", handleAddTask);
+
+
+/***********************
+  4️⃣ CORE FUNCTIONS
+************************/
+
+// Add Task
+function handleAddTask() {
     const text = taskInput.value.trim();
 
     if (text === "") {
@@ -18,21 +31,19 @@ addBtn.addEventListener("click", function () {
         return;
     }
 
-    const task = {
+    const newTask = {
         id: Date.now(),
         text: text,
         completed: false
     };
 
-    tasks.push(task);
-
-    saveTasks();
-    renderTasks();
-
+    tasks.push(newTask);
+    updateApp();
     taskInput.value = "";
-});
+}
 
-// 5️⃣ Render Function
+
+// Render Tasks
 function renderTasks() {
     taskList.innerHTML = "";
 
@@ -40,30 +51,83 @@ function renderTasks() {
         const li = document.createElement("li");
         li.textContent = task.text;
 
-        const deleteBtn = document.createElement("button");
-        deleteBtn.textContent = "Delete";
-        deleteBtn.classList.add("delete-btn");
+        if (task.completed) {
+            li.classList.add("completed");
+        }
 
-        deleteBtn.addEventListener("click", function () {
-            deleteTask(task.id);
-        });
+        const completeBtn = createButton(
+            "Complete",
+            "complete-btn",
+            function () {
+                toggleTask(task.id);
+            }
+        );
 
+        const deleteBtn = createButton(
+            "Delete",
+            "delete-btn",
+            function () {
+                deleteTask(task.id);
+            }
+        );
+
+        li.appendChild(completeBtn);
         li.appendChild(deleteBtn);
         taskList.appendChild(li);
     });
 }
 
-// 6️⃣ Delete Task Function
+
+// Delete Task
 function deleteTask(id) {
     tasks = tasks.filter(function (task) {
         return task.id !== id;
     });
 
+    updateApp();
+}
+
+
+// Toggle Complete
+function toggleTask(id) {
+    tasks = tasks.map(function (task) {
+        if (task.id === id) {
+            return {
+                ...task,
+                completed: !task.completed
+            };
+        }
+        return task;
+    });
+
+    updateApp();
+}
+
+
+// Save to LocalStorage
+function saveTasks() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+
+// Update Entire App (Single Source of Truth)
+function updateApp() {
     saveTasks();
     renderTasks();
 }
 
-// 7️⃣ Save to localStorage
-function saveTasks() {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
+
+// Helper Function for Button Creation
+function createButton(text, className, callback) {
+    const button = document.createElement("button");
+    button.textContent = text;
+    button.classList.add(className);
+    button.addEventListener("click", callback);
+    return button;
 }
+
+
+/***********************
+  5️⃣ INITIALIZE APP
+************************/
+renderTasks();
