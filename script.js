@@ -4,19 +4,36 @@
 const taskInput = document.querySelector("#taskInput");
 const addBtn = document.querySelector("#addBtn");
 const taskList = document.querySelector("#taskList");
+const allBtn = document.querySelector("#allBtn");
+const completedBtn = document.querySelector("#completedBtn");
+const pendingBtn = document.querySelector("#pendingBtn");
 
 
 /***********************
   2️⃣ APPLICATION STATE
 ************************/
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+let currentFilter="all";
 
 
 /***********************
   3️⃣ EVENT LISTENERS
 ************************/
 addBtn.addEventListener("click", handleAddTask);
+allBtn.addEventListener("click", function () {
+    currentFilter = "all";
+    renderTasks();
+});
 
+completedBtn.addEventListener("click", function () {
+    currentFilter = "completed";
+    renderTasks();
+});
+
+pendingBtn.addEventListener("click", function () {
+    currentFilter = "pending";
+    renderTasks();
+});
 
 /***********************
   4️⃣ CORE FUNCTIONS
@@ -45,9 +62,20 @@ function handleAddTask() {
 
 // Render Tasks
 function renderTasks() {
+    let filteredTasks=tasks;
+    if(currentFilter==="completed"){
+        filteredTasks=tasks.filter(function(task){
+            return task.completed===true;
+        });
+    }
+    if(currentFilter==="pending"){
+        filteredTasks=tasks.filter(function(task){
+            return task.completed===false;
+        });
+    }
     taskList.innerHTML = "";
 
-    tasks.forEach(function (task) {
+    filteredTasks.forEach(function (task) {
         const li = document.createElement("li");
         li.textContent = task.text;
 
