@@ -111,11 +111,31 @@ function renderTasks() {
                 deleteTask(task.id);
             }
         );
+        const editBtn=createButton(
+    "Edit",
+    "edit-btn",
+    () => editTask(task.id)
+);
 
         li.appendChild(completeBtn);
         li.appendChild(deleteBtn);
         taskList.appendChild(li);
+        li.appendChild(editBtn);
     });
+}
+
+//editTask()
+function editTask(id){
+    const newText=prompt("Edit your task:");
+
+    if(!newText || newText.trim()==="") return;
+
+    task = task.map(task => 
+        task.id===id
+        ?{...task, text: newText.trim() }
+        : task
+    );
+    updateApp();
 }
 
 
