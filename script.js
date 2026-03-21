@@ -20,20 +20,29 @@ let currentFilter="all";
   3️⃣ EVENT LISTENERS
 ************************/
 addBtn.addEventListener("click", handleAddTask);
-allBtn.addEventListener("click", function () {
+allBtn.addEventListener("click", () => {
     currentFilter = "all";
+    setActiveFilterButton(allBtn);
     renderTasks();
 });
 
-completedBtn.addEventListener("click", function () {
+completedBtn.addEventListener("click", () => {
     currentFilter = "completed";
+    setActiveFilterButton(completedBtn);
     renderTasks();
 });
 
-pendingBtn.addEventListener("click", function () {
+pendingBtn.addEventListener("click", () => {
     currentFilter = "pending";
+    setActiveFilterButton(pendingBtn);
     renderTasks();
 });
+taskInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+        handleAddTask();
+    }
+});
+
 
 /***********************
   4️⃣ CORE FUNCTIONS
@@ -74,7 +83,11 @@ function renderTasks() {
         });
     }
     taskList.innerHTML = "";
-
+    if(filteredTasks.length===0){
+        taskList.innerHTML="<li>No tasks found</li>";
+        return;
+    }
+        
     filteredTasks.forEach(function (task) {
         const li = document.createElement("li");
         li.textContent = task.text;
@@ -104,6 +117,7 @@ function renderTasks() {
         taskList.appendChild(li);
     });
 }
+
 
 
 // Delete Task
@@ -152,6 +166,12 @@ function createButton(text, className, callback) {
     button.classList.add(className);
     button.addEventListener("click", callback);
     return button;
+}
+function setActiveFilterButton(activeButton) {
+   [ allBtn, completedBtn, pendingBtn].forEach(btn =>
+    btn.classList.remove("active")
+   );
+   activeButton.classList.add("active");
 }
 
 

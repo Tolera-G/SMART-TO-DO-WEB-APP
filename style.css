@@ -137,3 +137,7 @@ li {
 .filter-btn:hover {
   background: #eee;
 }
+.active{
+  background-color: rgb(8, 31, 74);
+  color: white;
+}
