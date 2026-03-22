@@ -125,16 +125,17 @@ function renderTasks() {
 }
 
 //editTask()
-function editTask(id){
-    const newText=prompt("Edit your task:");
+function editTask(id) {
+    const newText = prompt("Edit your task:");
 
-    if(!newText || newText.trim()==="") return;
+    if (!newText || newText.trim() === "") return;
 
-    task = task.map(task => 
-        task.id===id
-        ?{...task, text: newText.trim() }
-        : task
+    tasks = tasks.map(task =>
+        task.id === id
+            ? { ...task, text: newText.trim() }
+            : task
     );
+
     updateApp();
 }
 
